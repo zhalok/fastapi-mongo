@@ -1,6 +1,7 @@
 import cv2
 from sklearn.cluster import KMeans
 import os
+from firebase_admin import storage
 
 
 def find_vertical_limit(image):
@@ -75,3 +76,25 @@ def save_image(image,filename):
       os.makedirs("generations")
    save_path = os.path.join("generations",filename)
    cv2.imwrite(save_path,image)
+   return save_path
+
+def delete_image(image_path):
+  
+  if not isinstance(image_path, str):
+    raise ValueError("Image path must be a string.")
+
+  try:
+    
+    os.remove(image_path)
+    return True
+  except FileNotFoundError:
+    print(f"Error: Image file not found: {image_path}")
+    return False
+
+
+   
+def upload_to_firebase_storage(file_path,destination_path):
+   bucket = storage.bucket()
+   blob = bucket.blob(destination_path)
+   blob.upload_from_filename(file_path)
+   return blob.make_public()

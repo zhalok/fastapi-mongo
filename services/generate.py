@@ -3,12 +3,12 @@ import cv2
 import numpy as np
 from dtos.generate_spritesheet_dto import GenerateSpriteSheetDTO
 from config.config import Settings
-from common.util import save_image, remove_bg, crop_vertically
+from common.util import save_image, remove_bg, crop_vertically,upload_to_firebase_storage, delete_image
+import time
 
 async def generate_image(data:GenerateSpriteSheetDTO):
 
-#   print(data)
-  print(Settings().HF_API_KEY)
+
 
   API_URL = "https://api-inference.huggingface.co/models/Onodofthenorth/SD_PixelArt_SpriteSheet_Generator"
   headers = {"Authorization": f'Bearer {Settings().HF_API_KEY}'}
@@ -32,9 +32,16 @@ async def generate_image(data:GenerateSpriteSheetDTO):
 
 
 async def generate_spritesheet(data:GenerateSpriteSheetDTO):
-  ...
+  
   image =  await generate_image(data=data)
   image = remove_bg(image=image)
   image = crop_vertically(image=image)
-  save_image(image=image,filename="generation.png")
+  filename = f'{str(round(time.time()))}.png'
+  image_path = save_image(image=image,filename=filename)
+  firebase_destination = f'assets/spritesheet/{filename}'
+  firebase_url = upload_to_firebase_storage(file_path=image_path,destination_path=firebase_destination)
+  delete_image(image_path=image_path)
+  return firebase_url
+
+
 

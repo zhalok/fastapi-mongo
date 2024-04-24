@@ -12,8 +12,11 @@ import firebase_admin
 class Settings(BaseSettings):
     # database configurations
     DATABASE_URL: Optional[str] = None
+
+    # hugging face configuration
     HF_API_KEY:str 
-    # FIREBASE_PRIVATE_KEY_ID:str
+
+    # firebase configuration
     FIREBASE_PRIVATE_KEY:str
     FIREBASE_PROJECT_ID:str
     FIREBASE_CLIENT_EMAIL:str
