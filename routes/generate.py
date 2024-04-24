@@ -6,5 +6,6 @@ GenerateRouter = APIRouter()
 @GenerateRouter.post("/spritesheet")
 async def generate_spritesheet(generate_spritesheet_dto:GenerateSpriteSheetDTO = Body(...)):
     ...
-    await generate.generate_spritesheet(generate_spritesheet_dto)
-    return "cool"
+    response =  await generate.generate_spritesheet(generate_spritesheet_dto)
+    json_response = { "success": True, "data":response, "message": None }
+    return json_response

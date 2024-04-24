@@ -97,4 +97,6 @@ def upload_to_firebase_storage(file_path,destination_path):
    bucket = storage.bucket()
    blob = bucket.blob(destination_path)
    blob.upload_from_filename(file_path)
-   return blob.make_public()
+   blob.make_public()
+
+   return blob.public_url
