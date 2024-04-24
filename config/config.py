@@ -9,6 +9,7 @@ import models as models
 class Settings(BaseSettings):
     # database configurations
     DATABASE_URL: Optional[str] = None
+    HF_API_KEY:str 
 
     # JWT
     secret_key: str = "secret"

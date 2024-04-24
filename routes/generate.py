@@ -1,9 +1,10 @@
 from fastapi import Body, APIRouter, HTTPException
-from dtos.create_spritesheet_dto import CreateSpriteSheetDTO
-
+from dtos.generate_spritesheet_dto import GenerateSpriteSheetDTO
+from services import generate
 GenerateRouter = APIRouter()
 
 @GenerateRouter.post("/spritesheet")
-async def generate_spritesheet(create_spritesheet_dto:CreateSpriteSheetDTO = Body(...)):
+async def generate_spritesheet(generate_spritesheet_dto:GenerateSpriteSheetDTO = Body(...)):
     ...
-    return create_spritesheet_dto.prompt
+    await generate.generate_spritesheet(generate_spritesheet_dto)
+    return "cool"

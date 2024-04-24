@@ -1,4 +1,4 @@
 from pydantic import BaseModel
 
-class CreateSpriteSheetDTO(BaseModel):
+class GenerateSpriteSheetDTO(BaseModel):
     prompt:str
