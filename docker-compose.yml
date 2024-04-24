@@ -4,7 +4,7 @@ services:
   web:
     build: .
     ports:
-      - "8080:8080"
+      - "5000:5000"
     # env_file:
     #   - .env.docker-compose
 
@@ -14,6 +14,5 @@ services:
   #     - "27017"
   #   volumes:
   #     - data:/bitnami/mongodb
-
-volumes:
-  data:
+# volumes:
+#   data:

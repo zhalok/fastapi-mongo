@@ -38,10 +38,11 @@ async def generate_spritesheet(data:GenerateSpriteSheetDTO):
   image = crop_vertically(image=image)
   filename = f'{str(round(time.time()))}.png'
   image_path = save_image(image=image,filename=filename)
-  firebase_destination = f'assets/spritesheet/{filename}'
+  firebase_destination = f'assets/{data.gameId}/spritesheet/{filename}'
   firebase_url = upload_to_firebase_storage(file_path=image_path,destination_path=firebase_destination)
   delete_image(image_path=image_path)
-  return firebase_url
+  frame_height,frame_width,_ = image.shape
+  return {"image_url":firebase_url,"frame_height":frame_height,"frame_width":frame_width//4}
 
 
 
